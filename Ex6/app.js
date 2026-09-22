@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// //import routers
+// const articleRouter = require('./routes/articleRouter');
+
+// // app.use('/api/articles', articleRouter);
+
 const articles = require('./articles');
 const videos = require('./videos');
 
