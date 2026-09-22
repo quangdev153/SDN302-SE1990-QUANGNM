@@ -19,8 +19,8 @@ const readData = async () => {
 commentRouter.route('/')
     .get(async (req, res) => {
         try {
-            const comment = await readData(); 
-            res.status(200).json(articles.comments); 
+            const comments = await readData(); 
+            res.status(200).json(comments.comments); 
         } catch (err) {
             res.status(500).json({ message: err.message }); 
         }
@@ -30,21 +30,23 @@ commentRouter.route('/')
     .post(async (req, res) => {
         try {
             const read = await readData();
-            const comments= read.comments
+            const comments = read.comments
             const articles = read.articles
-            if(!(articles.filter(s => s.id === parseInt(req.body.articleId)))){
-                return res.status(404).json({ message: err.message });
+            const articleId = parseInt(req.body.articleId)
+
+            if (!articles.some(s => s.id === articleId)) {
+                return res.status(404).json({ message: 'Article not found' });
             }
             const newComment = {
                 id: comments.length > 0 ? comments[comments.length - 1].id + 1 : 1, 
-                articleId: req.body.articleId, 
+                articleId, 
                 date: req.body.date, 
                 content: req.body.content,
                 author: req.body.author
             };
             comments.push(newComment); 
             
-            await writeData(comments); 
+            await writeData(read); 
             
             res.status(201).json(newComment); 
         } catch (err) {
@@ -75,7 +77,7 @@ commentRouter.route('/:id')
 
             comments[index] = { ...comments[index], ...req.body }; 
             
-            await writeData(comments); 
+            await writeData(read); 
             
             res.status(200).json(comments[index]); 
         } catch (err) {
@@ -93,7 +95,7 @@ commentRouter.route('/:id')
 
             const deletedArticle = comments.splice(index, 1); 
             
-            await writeData(comments); 
+            await writeData(read); 
             
             res.status(200).json(deletedArticle); 
         } catch (err) {

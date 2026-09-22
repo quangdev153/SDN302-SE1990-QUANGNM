@@ -39,7 +39,7 @@ articleRouter.route('/')
             };
             articles.push(newArticle); 
             
-            await writeData(articles); 
+            await writeData(read); 
             
             res.status(201).json(newArticle); 
         } catch (err) {
@@ -70,7 +70,7 @@ articleRouter.route('/:id')
 
             articles[index] = { ...articles[index], ...req.body }; 
             
-            await writeData(articles); 
+            await writeData(read); 
             
             res.status(200).json(articles[index]); 
         } catch (err) {
@@ -88,7 +88,7 @@ articleRouter.route('/:id')
 
             const deletedArticle = articles.splice(index, 1); 
             
-            await writeData(articles); 
+            await writeData(read); 
             
             res.status(200).json(deletedArticle); 
         } catch (err) {
@@ -101,8 +101,14 @@ articleRouter.route('/:id/comments')
         try {
             const id = parseInt(req.params.id)
             const read = await readData(); 
+            const articles = read.articles;
             const comments = read.comments;
-            res.status(200).json(comments.find(s => s.articleId === id)); 
+
+            if (!articles.some(s => s.id === id)) {
+                return res.status(404).json({ message: 'Article not found' });
+            }
+
+            res.status(200).json(comments.filter(s => s.articleId === id)); 
         } catch (err) {
             res.status(404).json({ message: err.message }); 
         }
