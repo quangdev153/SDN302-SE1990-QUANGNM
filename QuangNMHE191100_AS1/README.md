@@ -1,6 +1,22 @@
 1. Nguyễn Minh Quang
 2. HE191100
 
+5. get /articles
+  get/articles/:id
+  post /articles
+  put /articles/:id
+  delete /articles/:id
+
+  get /comments
+  get/comments/:id
+  post /comments
+  put /comments/:id
+  delete /comments/:id
+
+  get /articles/:id/comments
+
+
+
 6. ![alt text](image.png) 
   
   ![alt text](image-1.png)

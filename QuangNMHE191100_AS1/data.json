@@ -4,7 +4,7 @@
       "id": 2,
       "title": "Getting Started with Express",
       "content": "Express is a web framework for Node.js.",
-      "author": "Tran Thi B",
+      "author": "Tran Thi E",
       "date": "2026-09-02"
     },
     {
@@ -16,13 +16,6 @@
     }
   ],
   "comments": [
-    {
-      "id": 2,
-      "articleId": 1,
-      "author": "Hoang Van E",
-      "content": "I would like to learn more about Node.js.",
-      "date": "2026-09-04"
-    },
     {
       "id": 3,
       "articleId": 2,
