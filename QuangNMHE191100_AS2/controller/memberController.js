@@ -111,4 +111,4 @@ module.exports = {
     createMember,
     updateMember,
     deleteMember
-};
+};   

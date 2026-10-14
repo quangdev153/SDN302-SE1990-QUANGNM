@@ -3,7 +3,7 @@ const moongoose = require("mongoose");
 const memberSchema = new moongoose.Schema({
     _id:{
         type:String,
-        require:true
+        default: () => new mongoose.Types.ObjectId().toString()
     },
     fullname:{
         type:String,

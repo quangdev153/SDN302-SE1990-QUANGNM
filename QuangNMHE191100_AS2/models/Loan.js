@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const loanSchema = new mongoose.Schema({
     _id: {
         type: String,
-        required: true
+        default: () => new mongoose.Types.ObjectId().toString()
     },
     member_id: {
         type: String,

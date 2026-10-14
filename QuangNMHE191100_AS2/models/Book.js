@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
     _id:{
-        type:String
+        type:String,
+        default: () => new mongoose.Types.ObjectId().toString()
     },
   title: {
     type: String,

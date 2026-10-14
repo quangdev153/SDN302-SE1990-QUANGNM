@@ -21,15 +21,15 @@ const getBookById = async (req, res) => {
 
 const createBook = async (req, res) => {
     try {
-        const { title, author, isbn, copies } = req.body;
-        if (!title || !author || !isbn || copies === undefined) {
+        const { title, author, isbn, totalCopies,availableCopies } = req.body;
+        if (!title || !author || !isbn || totalCopies === undefined || availableCopies === undefined) {
             return res.status(400).json({ 
-                message: "Vui lòng nhập đầy đủ thông tin: title, author, isbn và copies." 
+                message: "Vui lòng nhập đầy đủ thông tin: title, author, isbn, totalCopies và availableCopies." 
             });
         }
-        if (Number(copies) < 0) {
+        if (Number(totalCopies) < 0 || Number(availableCopies) < 0) {
             return res.status(400).json({ 
-                message: "Số lượng bản sao (copies) không được phép là số âm." 
+                message: "Số lượng bản sao (totalCopies và availableCopies) không được phép là số âm." 
             });
         }
         const existingBook = await Book.findOne({ isbn: isbn });
